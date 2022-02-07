@@ -1,13 +1,20 @@
 const cards = document.querySelectorAll('.memory-card');
 const cardsArr = [...cards];
+const firstPlayer = document.querySelector('.player1');
+const secondPlayer = document.querySelector('.player2');
 
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
+let isFirst = true;
+let count = 0;
+
+console.log(firstPlayer.lastElementChild.innerHTML);
 
 shuffle();
 
 function flipCard(ev) {
+
     if(lockBoard) return;
     if(this === firstCard) return;
 
@@ -30,6 +37,7 @@ function checkForMatch() {
 }
 
 function disableCards() {
+    countScore();
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
     resetBoard();
@@ -37,6 +45,8 @@ function disableCards() {
 
 function unFlippedCards() {
     lockBoard = true;
+    count++;
+    checkPlayer();
     setTimeout(() => {
         firstCard.classList.remove('flip');
         secondCard.classList.remove('flip');
@@ -64,6 +74,28 @@ function checkAllFlipped() {
             shuffle();
             cards.forEach(card => card.addEventListener('click', flipCard));   
         }, 1000)
+    }
+}
+
+function checkPlayer() {
+    if(count % 2 === 0) {
+        secondPlayer.classList.remove('active');
+        firstPlayer.classList.add('active');
+    } else {
+        firstPlayer.classList.remove('active');
+        secondPlayer.classList.add('active');
+    }
+}
+
+function countScore() {
+    if(firstPlayer.classList.contains('active')) {
+        let sum = firstPlayer.lastElementChild.innerHTML;
+        sum++;
+        firstPlayer.lastElementChild.innerHTML = sum;
+    } else {
+        let sum = secondPlayer.lastElementChild.innerHTML;
+        sum++;
+        secondPlayer.lastElementChild.innerHTML = sum;  
     }
 }
 

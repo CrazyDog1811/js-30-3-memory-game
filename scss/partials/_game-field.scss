@@ -1,0 +1,62 @@
+.wrapper {
+    position: relative;
+    width: 50%;
+    padding-top: 50%;
+    @media screen and (max-width: 1000px) {
+        width: 60%;
+        padding-top: 60%;
+    }
+    @media screen and (max-width: 550px) {
+        width: 80%;
+        padding-top: 80%;
+    }
+    @media screen and (max-width: 350px) {
+        width: 100%;
+        padding-top: 100%;
+    }
+}
+
+.game-field {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    gap: 5px;  
+    padding: 5px;
+    border: 2px dashed lime;
+    border-radius: 10px;
+    perspective: 800px;
+}
+
+.memory-card {
+    position: relative;
+    width: calc(25% - 5px);
+    transition: .5s;
+    transform-style: preserve-3d;
+}
+
+.memory-card:active {
+ transform: scale(.97);
+ transition: .2s;
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #1c7ccc;
+    border-radius: 5px;
+    backface-visibility: hidden;
+}
+
+.front-face {
+  transform: rotateY(180deg);
+}
